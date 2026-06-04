@@ -15,7 +15,8 @@ function App() {
 
     const novaTarefa = {
       texto: tarefa,
-      concluida: false
+      concluida: false,
+      criadaEm: new Date().toLocaleString()
     };
 
     setTarefas([
@@ -102,6 +103,10 @@ function App() {
         >
           {item.texto}
         </p>
+
+        <small className="data">
+          {item.criadaEm}
+        </small>
 
         <div className="acoes">
 
