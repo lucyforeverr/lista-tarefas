@@ -1,22 +1,32 @@
 import { useState } from "react";
 import "./App.css";
 
+import TaskInput from "./components/TaskInput";
+import TaskList from "./components/TaskList";
+
 function App() {
 
-  const [tarefa, setTarefa] = useState("");
-  const [tarefas, setTarefas] = useState([]);
+  const [tarefa, setTarefa] =
+    useState("");
+
+  const [tarefas, setTarefas] =
+    useState([]);
 
   function adicionarTarefa() {
 
     if (!tarefa) {
-      alert("Digite uma tarefa!");
+      alert(
+        "Digite uma tarefa!"
+      );
       return;
     }
 
     const novaTarefa = {
       texto: tarefa,
       concluida: false,
-      criadaEm: new Date().toLocaleString()
+      criadaEm:
+        new Date()
+          .toLocaleString()
     };
 
     setTarefas([
@@ -27,112 +37,84 @@ function App() {
     setTarefa("");
   }
 
-  function concluirTarefa(index) {
+  function concluirTarefa(
+    index
+  ) {
 
     const novasTarefas =
       [...tarefas];
 
-    novasTarefas[index].concluida =
-      !novasTarefas[index].concluida;
+    novasTarefas[index]
+      .concluida =
+      !novasTarefas[index]
+        .concluida;
 
-    setTarefas(novasTarefas);
+    setTarefas(
+      novasTarefas
+    );
   }
 
-  function removerTarefa(index) {
+  function removerTarefa(
+    index
+  ) {
 
     const novasTarefas =
-      tarefas.filter((_, i) =>
-        i !== index
+      tarefas.filter(
+        (_, i) =>
+          i !== index
       );
 
-    setTarefas(novasTarefas);
+    setTarefas(
+      novasTarefas
+    );
   }
-  const tarefasConcluidas = 
-  tarefas.filter(
-    (tarefa) =>
-      tarefa.concluida
-  ).length;
-  
+
+  const tarefasConcluidas =
+    tarefas.filter(
+      (tarefa) =>
+        tarefa.concluida
+    ).length;
+
   return (
-    <div className="header">
+    <div className="container">
 
-      <h1>To-do List</h1>
+      <div className="header">
 
-      <p>
-        {tarefasConcluidas}
-        {" "}
-        de
-        {" "}
-        {tarefas.length}
-        {" "}
-        concluidas
+        <h1>
+           To-Do List
+        </h1>
+
+        <p>
+          {
+            tarefasConcluidas
+          }{" "}
+          de{" "}
+          {tarefas.length}
+          {" "}
+          concluídas
         </p>
 
-      <input
-        type="text"
-        placeholder="Digite uma tarefa"
-        value={tarefa}
-        onChange={(e) =>
-          setTarefa(e.target.value)
+      </div>
+
+      <TaskInput
+        tarefa={tarefa}
+        setTarefa={
+          setTarefa
+        }
+        adicionarTarefa={
+          adicionarTarefa
         }
       />
 
-      <button onClick={adicionarTarefa}>
-        Adicionar
-      </button>
-
-      <div className="lista-tarefas">
-
-  {tarefas.length === 0 ? (
-    <p className="vazio">
-      Nenhuma tarefa adicionada 📝
-    </p>
-  ) : (
-    tarefas.map((item, index) => (
-      <div
-        key={index}
-        className="tarefa"
-      >
-
-        <p
-          className={
-            item.concluida
-              ? "concluida"
-              : ""
-          }
-        >
-          {item.texto}
-        </p>
-
-        <small className="data">
-          {item.criadaEm}
-        </small>
-
-        <div className="acoes">
-
-          <button
-            onClick={() =>
-              concluirTarefa(index)
-            }
-          >
-            ✓
-          </button>
-
-          <button
-            onClick={() =>
-              removerTarefa(index)
-            }
-          >
-            🗑
-          </button>
-
-        </div>
-
-      </div>
-    ))
-  )}
-
-</div>
+      <TaskList
+        tarefas={tarefas}
+        concluirTarefa={
+          concluirTarefa
+        }
+        removerTarefa={
+          removerTarefa
+        }
+      />
 
     </div>
   );
