@@ -17,7 +17,7 @@ function TaskItem({ item, index, concluirTarefa, removerTarefa }) {
         </button>
 
         <button onClick={() => removerTarefa(index)}>
-          Lixeira
+          Lixo
         </button>
       </div>
     </div>
